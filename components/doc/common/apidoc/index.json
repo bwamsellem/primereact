@@ -9903,6 +9903,14 @@
                             "description": "Element for custom filtering."
                         },
                         {
+                            "name": "filterItems",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "ReactNode | Function",
+                            "default": "",
+                            "description": "Custom Dialog ."
+                        },
+                        {
                             "name": "filterField",
                             "optional": true,
                             "readonly": false,
@@ -11550,6 +11558,22 @@
                             ],
                             "returnType": "void",
                             "description": "Callback function to apply the filters with optional value and index parameters."
+                        },
+                        {
+                            "name": "filterCallback",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "optional": true,
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "index",
+                                    "optional": true,
+                                    "type": "number"
+                                }
+                            ],
+                            "returnType": "void"
                         }
                     ],
                     "extendedBy": "ColumnFilterHeaderTemplateOptions,ColumnFilterFooterTemplateOptions"
@@ -11592,6 +11616,22 @@
                             ],
                             "returnType": "void",
                             "description": "Callback function to apply the filters with optional value and index parameters."
+                        },
+                        {
+                            "name": "filterCallback",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "optional": true,
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "index",
+                                    "optional": true,
+                                    "type": "number"
+                                }
+                            ],
+                            "returnType": "void"
                         }
                     ],
                     "extendedTypes": "ColumnFilterApplyTemplateOptions"
@@ -11634,6 +11674,22 @@
                             ],
                             "returnType": "void",
                             "description": "Callback function to apply the filters with optional value and index parameters."
+                        },
+                        {
+                            "name": "filterCallback",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "optional": true,
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "index",
+                                    "optional": true,
+                                    "type": "number"
+                                }
+                            ],
+                            "returnType": "void"
                         }
                     ],
                     "extendedTypes": "ColumnFilterApplyTemplateOptions"
@@ -11708,6 +11764,62 @@
                             ],
                             "returnType": "void",
                             "description": "Callback function with optional value and index parameters."
+                        }
+                    ]
+                },
+                "ColumnFilterItemsTemplateOptions": {
+                    "relatedProp": "",
+                    "props": [
+                        {
+                            "name": "field",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "filterModel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ColumnFilterModelOptions"
+                        }
+                    ],
+                    "callbacks": [
+                        {
+                            "name": "filterCallback",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "optional": true,
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "index",
+                                    "optional": true,
+                                    "type": "number"
+                                }
+                            ],
+                            "returnType": "void"
+                        },
+                        {
+                            "name": "filterApplyCallback",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "optional": true,
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "index",
+                                    "optional": true,
+                                    "type": "number"
+                                }
+                            ],
+                            "returnType": "void"
+                        },
+                        {
+                            "name": "filterClearCallback",
+                            "parameters": [],
+                            "returnType": "void"
                         }
                     ]
                 },

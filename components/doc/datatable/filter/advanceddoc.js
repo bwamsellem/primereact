@@ -17,6 +17,43 @@ import { classNames } from '../../../lib/utils/Utils';
 import { DocSectionCode } from '../../common/docsectioncode';
 import { DocSectionText } from '../../common/docsectiontext';
 
+const representativesItemTemplate = (option) => {
+    return (
+        <div className="flex align-items-center gap-2">
+            <img alt={option.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${option.image}`} width="32" />
+            <span>{option.name}</span>
+        </div>
+    );
+};
+
+const RepresentativeFilterTemplate = (options) => {
+    const value = options.filterModel.value;
+    const [selectedItems, setSelectedItems] = useState(value);
+
+    const onChange = (e) => {
+        setSelectedItems(e.value);
+    };
+
+    const onClear = (e) => {
+        options.filterClearCallback();
+    };
+
+    const onApply = (e) => {
+        options.filterCallback(selectedItems);
+        options.filterApplyCallback(selectedItems);
+    };
+
+    return (
+        <>
+            <MultiSelect value={selectedItems} options={options.representatives} itemTemplate={representativesItemTemplate} onChange={onChange} optionLabel="name" placeholder="Any" className="p-column-filter" inline />
+            <div className="p-column-filter-buttonbar">
+                <Button type="button" className="p-button-outlined p-button-sm" onClick={onClear} label="Clear" />
+                <Button type="button" className="p-button-sm" onClick={onApply} label="Apply" />
+            </div>
+        </>
+    );
+};
+
 export function AdvancedFilterDoc(props) {
     const [customers, setCustomers] = useState(null);
     const [filters, setFilters] = useState(null);
@@ -157,15 +194,14 @@ export function AdvancedFilterDoc(props) {
     };
 
     const representativeFilterTemplate = (options) => {
-        return <MultiSelect value={options.value} options={representatives} itemTemplate={representativesItemTemplate} onChange={(e) => options.filterCallback(e.value)} optionLabel="name" placeholder="Any" className="p-column-filter" />;
-    };
-
-    const representativesItemTemplate = (option) => {
         return (
-            <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${option.image}`} width="32" />
-                <span>{option.name}</span>
-            </div>
+            <RepresentativeFilterTemplate
+                representatives={representatives}
+                filterModel={options.filterModel}
+                filterClearCallback={options.filterClearCallback}
+                filterCallback={options.filterCallback}
+                filterApplyCallback={options.filterApplyCallback}
+            />
         );
     };
 
@@ -232,15 +268,15 @@ export function AdvancedFilterDoc(props) {
 
     const code = {
         basic: `
-<DataTable value={customers} paginator showGridlines rows={10} loading={loading} dataKey="id" 
+<DataTable value={customers} paginator showGridlines rows={10} loading={loading} dataKey="id"
         filters={filters} globalFilterFields={['name', 'country.name', 'representative.name', 'balance', 'status']} header={header}
         emptyMessage="No customers found.">
     <Column field="name" header="Name" filter filterPlaceholder="Search by name" style={{ minWidth: '12rem' }} />
     <Column header="Country" filterField="country.name" style={{ minWidth: '12rem' }} body={countryBodyTemplate}
-        filter filterPlaceholder="Search by country" filterClear={filterClearTemplate} 
+        filter filterPlaceholder="Search by country" filterClear={filterClearTemplate}
         filterApply={filterApplyTemplate} filterFooter={filterFooterTemplate} />
     <Column header="Agent" filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '14rem' }}
-        body={representativeBodyTemplate} filter filterElement={representativeFilterTemplate} />
+        body={representativeBodyTemplate} filter filterItems={representativeFilterTemplate} />
     <Column header="Date" filterField="date" dataType="date" style={{ minWidth: '10rem' }} body={dateBodyTemplate} filter filterElement={dateFilterTemplate} />
     <Column header="Balance" filterField="balance" dataType="numeric" style={{ minWidth: '10rem' }} body={balanceBodyTemplate} filter filterElement={balanceFilterTemplate} />
     <Column field="status" header="Status" filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={statusBodyTemplate} filter filterElement={statusFilterTemplate} />
@@ -481,15 +517,15 @@ export default function AdvancedFilterDemo() {
 
     return (
         <div className="card">
-            <DataTable value={customers} paginator showGridlines rows={10} loading={loading} dataKey="id" 
+            <DataTable value={customers} paginator showGridlines rows={10} loading={loading} dataKey="id"
                     filters={filters} globalFilterFields={['name', 'country.name', 'representative.name', 'balance', 'status']} header={header}
                     emptyMessage="No customers found.">
                 <Column field="name" header="Name" filter filterPlaceholder="Search by name" style={{ minWidth: '12rem' }} />
                 <Column header="Country" filterField="country.name" style={{ minWidth: '12rem' }} body={countryBodyTemplate}
-                    filter filterPlaceholder="Search by country" filterClear={filterClearTemplate} 
+                    filter filterPlaceholder="Search by country" filterClear={filterClearTemplate}
                     filterApply={filterApplyTemplate} filterFooter={filterFooterTemplate} />
                 <Column header="Agent" filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '14rem' }}
-                    body={representativeBodyTemplate} filter filterElement={representativeFilterTemplate} />
+                    body={representativeBodyTemplate} filter filterItems={representativeFilterTemplate} />
                 <Column header="Date" filterField="date" dataType="date" style={{ minWidth: '10rem' }} body={dateBodyTemplate} filter filterElement={dateFilterTemplate} />
                 <Column header="Balance" filterField="balance" dataType="numeric" style={{ minWidth: '10rem' }} body={balanceBodyTemplate} filter filterElement={balanceFilterTemplate} />
                 <Column field="status" header="Status" filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={statusBodyTemplate} filter filterElement={statusFilterTemplate} />
@@ -775,12 +811,12 @@ export default function AdvancedFilterDemo() {
 
     return (
         <div className="card">
-            <DataTable value={customers} paginator showGridlines rows={10} loading={loading} dataKey="id" 
+            <DataTable value={customers} paginator showGridlines rows={10} loading={loading} dataKey="id"
                     filters={filters} globalFilterFields={['name', 'country.name', 'representative.name', 'balance', 'status']} header={header}
                     emptyMessage="No customers found.">
                 <Column field="name" header="Name" filter filterPlaceholder="Search by name" style={{ minWidth: '12rem' }} />
                 <Column header="Country" filterField="country.name" style={{ minWidth: '12rem' }} body={countryBodyTemplate}
-                    filter filterPlaceholder="Search by country" filterClear={filterClearTemplate} 
+                    filter filterPlaceholder="Search by country" filterClear={filterClearTemplate}
                     filterApply={filterApplyTemplate} filterFooter={filterFooterTemplate} />
                 <Column header="Agent" filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '14rem' }}
                     body={representativeBodyTemplate} filter filterElement={representativeFilterTemplate} />
@@ -857,7 +893,7 @@ export default function AdvancedFilterDemo() {
                         style={{ minWidth: '14rem' }}
                         body={representativeBodyTemplate}
                         filter
-                        filterElement={representativeFilterTemplate}
+                        filterItems={representativeFilterTemplate}
                     />
                     <Column header="Date" filterField="date" dataType="date" style={{ minWidth: '10rem' }} body={dateBodyTemplate} filter filterElement={dateFilterTemplate} />
                     <Column header="Balance" filterField="balance" dataType="numeric" style={{ minWidth: '10rem' }} body={balanceBodyTemplate} filter filterElement={balanceFilterTemplate} />

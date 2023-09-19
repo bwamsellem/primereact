@@ -495,6 +495,7 @@ interface ColumnFilterApplyTemplateOptions {
      * @param {number} index - Index of the filter.
      */
     filterApplyCallback(value?: any, index?: number): void;
+    filterCallback(value?: any, index?: number): void;
 }
 
 /**
@@ -538,6 +539,14 @@ interface ColumnFilterElementTemplateOptions {
      * @param {number} index - Index of the filter.
      */
     filterCallback(value?: any, index?: number): void;
+}
+
+interface ColumnFilterItemsTemplateOptions {
+    field: string;
+    filterModel: ColumnFilterModelOptions;
+    filterCallback(value?: any, index?: number): void;
+    filterApplyCallback(value?: any, index?: number): void;
+    filterClearCallback(): void;
 }
 
 /**
@@ -868,6 +877,10 @@ export interface ColumnProps {
      * Element for custom filtering.
      */
     filterElement?: React.ReactNode | ((options: ColumnFilterElementTemplateOptions) => React.ReactNode);
+    /**
+     * Custom Dialog .
+     */
+    filterItems?: React.ReactNode | ((options: ColumnFilterItemsTemplateOptions) => React.ReactNode);
     /**
      * Property of a row data used for filtering, defaults to field.
      */

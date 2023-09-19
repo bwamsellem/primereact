@@ -792,19 +792,25 @@ export const ColumnFilter = React.memo((props) => {
     };
 
     const createItems = () => {
-        const operator = createOperator();
-        const constraints = createConstraints();
-        const addRule = createAddRule();
-        const buttonBar = createButtonBar();
+        const filterItemsProp = getColumnProp('filterItems');
 
-        return (
-            <>
-                {operator}
-                {constraints}
-                {addRule}
-                {buttonBar}
-            </>
-        );
+        if (!filterItemsProp) {
+            const operator = createOperator();
+            const constraints = createConstraints();
+            const addRule = createAddRule();
+            const buttonBar = createButtonBar();
+
+            return (
+                <>
+                    {operator}
+                    {constraints}
+                    {addRule}
+                    {buttonBar}
+                </>
+            );
+        } else {
+            return ObjectUtils.getJSXElement(filterItemsProp, { field, filterModel, filterApplyCallback: applyFilter, filterClearCallback: clearFilter, filterCallback: filterCallback });
+        }
     };
 
     const createOverlay = () => {

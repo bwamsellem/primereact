@@ -26,6 +26,7 @@ export const ColumnBase = ComponentBase.extend({
         filterApply: null,
         filterClear: null,
         filterElement: null,
+        filterItems: null,
         filterField: null,
         filterFooter: null,
         filterFunction: null,
