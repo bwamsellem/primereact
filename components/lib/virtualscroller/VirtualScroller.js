@@ -568,7 +568,7 @@ export const VirtualScroller = React.memo(
         }, [numToleratedItemsState]);
 
         useUpdateEffect(() => {
-            if (!prevProps.items || prevProps.items.length !== (props.items || []).length) {
+            if (!prevProps.items || prevProps.items.length !== (props.items || []).length || (both && prevProps.items[0].length !== (props.items ? props.items[0].length : 0))) {
                 init();
             }
 
