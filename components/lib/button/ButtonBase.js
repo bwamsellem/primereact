@@ -22,6 +22,7 @@ export const ButtonBase = ComponentBase.extend({
         text: false,
         tooltip: null,
         tooltipOptions: null,
-        visible: true
+        visible: true,
+        type: 'button'
     }
 });

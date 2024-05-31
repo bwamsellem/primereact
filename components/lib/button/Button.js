@@ -119,7 +119,8 @@ export const Button = React.memo(
                 ref: elementRef,
                 'aria-label': defaultAriaLabel,
                 className,
-                disabled: disabled
+                disabled: disabled,
+                type: props.type
             },
             ButtonBase.getOtherProps(props),
             ptm('root')
