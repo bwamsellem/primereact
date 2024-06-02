@@ -3,7 +3,7 @@
     "private": false,
     "version": "9.6.0-sp1.5",
     "scripts": {
-        "dev": "next dev",
+        "dev": "next dev -p 3001",
         "start": "next start",
         "build": "next build",
         "build:lib": "SET NODE_ENV=production&& SET  INPUT_DIR=components/lib/&& SET OUTPUT_DIR=dist/&& npm run build:package",

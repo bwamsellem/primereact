@@ -1440,6 +1440,7 @@ export const Calendar = React.memo(
 
         const show = (type) => {
             setFocusedState(false);
+
             if (props.onVisibleChange) {
                 props.onVisibleChange({
                     visible: true,
