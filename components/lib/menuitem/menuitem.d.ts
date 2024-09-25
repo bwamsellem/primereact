@@ -126,4 +126,8 @@ export interface MenuItem {
      * The data of the menuitem.
      */
     data?: any | undefined;
+    /**
+     * Test id for the menuitem.
+     */
+    'data-testid'?: string | undefined;
 }

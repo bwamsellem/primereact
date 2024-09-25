@@ -255,7 +255,8 @@ export const Menu = React.memo(
                     key,
                     className,
                     style: item.style,
-                    role: 'none'
+                    role: 'none',
+                    'data-testid': item['data-testid']
                 },
                 ptm('menuitem')
             );
