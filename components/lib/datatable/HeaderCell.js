@@ -304,6 +304,7 @@ export const HeaderCell = React.memo((props) => {
                     filtersStore={props.filtersStore}
                     filterIcon={props.filterIcon}
                     filterClearIcon={props.filterClearIcon}
+                    filterLocal={props.filterLocal}
                     ptCallbacks={ptCallbacks}
                     metaData={parentMetaData}
                 />

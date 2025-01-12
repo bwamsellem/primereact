@@ -1505,6 +1505,7 @@ export const DataTable = React.forwardRef((inProps, ref) => {
                 filterClearIcon={props.filterClearIcon}
                 onFilterChange={onFilterChange}
                 onFilterApply={onFilterApply}
+                filterLocal={filterLocal}
                 showSelectAll={props.showSelectAll}
                 allRowsSelected={allRowsSelected}
                 onColumnCheckboxChange={onColumnHeaderCheckboxChange}

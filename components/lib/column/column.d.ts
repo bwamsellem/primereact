@@ -547,6 +547,8 @@ interface ColumnFilterItemsTemplateOptions {
     filterCallback(value?: any, index?: number): void;
     filterApplyCallback(value?: any, index?: number): void;
     filterClearCallback(): void;
+    hide(): void;
+    filterLocal(data?: any, filters?: any): any[] | undefined;
 }
 
 /**

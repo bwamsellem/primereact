@@ -809,7 +809,7 @@ export const ColumnFilter = React.memo((props) => {
                 </>
             );
         } else {
-            return ObjectUtils.getJSXElement(filterItemsProp, { field, filterModel, filterApplyCallback: applyFilter, filterClearCallback: clearFilter, filterCallback: filterCallback });
+            return ObjectUtils.getJSXElement(filterItemsProp, { field, filterModel, filterApplyCallback: applyFilter, filterClearCallback: clearFilter, filterCallback: filterCallback, hide, filterLocal: props.filterLocal });
         }
     };
 

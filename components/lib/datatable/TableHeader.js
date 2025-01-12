@@ -123,6 +123,7 @@ export const TableHeader = React.memo((props) => {
                         filterIcon={props.filterIcon}
                         filters={props.filters}
                         filtersStore={props.filtersStore}
+                        filterLocal={props.filterLocal}
                         groupRowSortField={props.groupRowSortField}
                         groupRowsBy={props.groupRowsBy}
                         key={key}
@@ -181,6 +182,7 @@ export const TableHeader = React.memo((props) => {
                     onFilterApply={props.onFilterApply}
                     ptCallbacks={props.ptCallbacks}
                     metaData={props.metaData}
+                    filterLocal={props.filterLocal}
                 />
             );
         }
