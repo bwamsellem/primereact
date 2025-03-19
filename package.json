@@ -1,7 +1,7 @@
 {
     "name": "primereact-rl",
     "private": false,
-    "version": "9.6.0-sp1.7",
+    "version": "9.6.0-sp1.8",
     "scripts": {
         "dev": "next dev -p 3001",
         "start": "next start",

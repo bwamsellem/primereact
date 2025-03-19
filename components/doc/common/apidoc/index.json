@@ -11820,6 +11820,27 @@
                             "name": "filterClearCallback",
                             "parameters": [],
                             "returnType": "void"
+                        },
+                        {
+                            "name": "hide",
+                            "parameters": [],
+                            "returnType": "void"
+                        },
+                        {
+                            "name": "filterLocal",
+                            "parameters": [
+                                {
+                                    "name": "data",
+                                    "optional": true,
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "filters",
+                                    "optional": true,
+                                    "type": "any"
+                                }
+                            ],
+                            "returnType": "undefined | any[]"
                         }
                     ]
                 },
@@ -18890,6 +18911,22 @@
                             "type": "CSSProperties",
                             "default": "",
                             "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "loading",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Displays a loader to indicate data load is in progress."
+                        },
+                        {
+                            "name": "loadingIcon",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "IconType<DropdownProps>",
+                            "default": "",
+                            "description": "The icon to show while indicating data load is in progress."
                         },
                         {
                             "name": "tabIndex",
@@ -28902,6 +28939,14 @@
                             "type": "any",
                             "default": "",
                             "description": "The data of the menuitem."
+                        },
+                        {
+                            "name": "data-testid",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "",
+                            "description": "Test id for the menuitem."
                         }
                     ]
                 }

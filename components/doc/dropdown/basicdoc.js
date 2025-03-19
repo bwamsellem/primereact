@@ -15,7 +15,7 @@ export function BasicDoc(props) {
 
     const code = {
         basic: `
-<Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name" 
+<Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name"
     placeholder="Select a City" className="w-full md:w-14rem" />
         `,
         javascript: `
@@ -34,7 +34,7 @@ export default function BasicDemo() {
 
     return (
         <div className="card flex justify-content-center">
-            <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name" 
+            <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name"
                 placeholder="Select a City" className="w-full md:w-14rem" />
         </div>
     )
@@ -61,7 +61,7 @@ export default function BasicDemo() {
 
     return (
         <div className="card flex justify-content-center">
-            <Dropdown value={selectedCity} onChange={(e: DropdownChangeEvent) => setSelectedCity(e.value)} options={cities} optionLabel="name" 
+            <Dropdown value={selectedCity} onChange={(e: DropdownChangeEvent) => setSelectedCity(e.value)} options={cities} optionLabel="name"
                 placeholder="Select a City" className="w-full md:w-14rem" />
         </div>
     )

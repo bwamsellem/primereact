@@ -64,6 +64,8 @@ export const DropdownBase = ComponentBase.extend({
         transitionOptions: null,
         value: null,
         valueTemplate: null,
-        virtualScrollerOptions: null
+        virtualScrollerOptions: null,
+        loading: false,
+        loadingIcon: null
     }
 });

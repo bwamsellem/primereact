@@ -4,6 +4,7 @@ import { PrimeReactContext } from '../api/Api';
 import { useMountEffect, useOverlayListener, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
 import { ChevronDownIcon } from '../icons/chevrondown';
 import { TimesIcon } from '../icons/times';
+import { SpinnerIcon } from '../icons/spinner';
 import { OverlayService } from '../overlayservice/OverlayService';
 import { Tooltip } from '../tooltip/Tooltip';
 import { DomHandler, IconUtils, ObjectUtils, ZIndexUtils, classNames, mergeProps } from '../utils/Utils';
@@ -78,7 +79,7 @@ export const Dropdown = React.memo(
         };
 
         const onClick = (event) => {
-            if (props.disabled) {
+            if (props.disabled || props.loading) {
                 return;
             }
 
@@ -832,6 +833,31 @@ export const Dropdown = React.memo(
             return <div {...triggerProps}>{dropdownIcon}</div>;
         };
 
+        const createLoadingIcon = () => {
+            const loadingIconProps = mergeProps(
+                {
+                    className: 'p-dropdown-trigger-icon p-clickable',
+                    'data-pr-overlay-visible': overlayVisibleState
+                },
+                ptm('loadingIcon')
+            );
+            const icon = props.loadingIcon || <SpinnerIcon spin />;
+            const loadingIcon = IconUtils.getJSXIcon(icon, { ...loadingIconProps }, { props });
+            const ariaLabel = props.placeholder || props.ariaLabel;
+            const loadingButtonProps = mergeProps(
+                {
+                    className: 'p-dropdown-trigger',
+                    role: 'button',
+                    'aria-haspopup': 'listbox',
+                    'aria-expanded': overlayVisibleState,
+                    'aria-label': ariaLabel
+                },
+                ptm('trigger')
+            );
+
+            return <div {...loadingButtonProps}>{loadingIcon}</div>;
+        };
+
         const visibleOptions = getVisibleOptions();
         const selectedOption = getSelectedOption();
 
@@ -852,7 +878,7 @@ export const Dropdown = React.memo(
         const hiddenSelect = createHiddenSelect();
         const keyboardHelper = createKeyboardHelper();
         const labelElement = createLabel();
-        const dropdownIcon = createDropdownIcon();
+        const dropdownIcon = props.loading ? createLoadingIcon() : createDropdownIcon();
         const clearIcon = createClearIcon();
         const rootProps = mergeProps(
             {

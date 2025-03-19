@@ -407,6 +407,15 @@ export interface DropdownProps extends Omit<React.DetailedHTMLProps<React.InputH
      */
     style?: React.CSSProperties | undefined;
     /**
+     * Displays a loader to indicate data load is in progress.
+     * @defaultValue false
+     */
+    loading?: boolean;
+    /**
+     * The icon to show while indicating data load is in progress.
+     */
+    loadingIcon?: IconType<DropdownProps> | undefined;
+    /**
      * Index of the element in tabbing order.
      */
     tabIndex?: number | undefined;
