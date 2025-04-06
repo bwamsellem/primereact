@@ -120,6 +120,11 @@ export interface OverlayPanelProps extends Omit<React.DetailedHTMLProps<React.HT
      * @type {OverlayPanelPassThroughOptions}
      */
     pt?: OverlayPanelPassThroughOptions;
+
+    /**
+     * custom alignment
+     */
+    align?(overlayElement: HTMLElement): void;
 }
 
 /**

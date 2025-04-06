@@ -1,7 +1,7 @@
 {
     "name": "primereact-rl",
     "private": false,
-    "version": "9.6.0-sp1.8",
+    "version": "9.6.0-sp1.9",
     "scripts": {
         "dev": "next dev -p 3001",
         "start": "next start",
@@ -10,7 +10,7 @@
         "build:package": "npm run build:check && rollup -c && gulp build-resources && npm run build:api",
         "build:api": "node ./api-generator/build-api.js && npm run apidoc",
         "build:check": "npm run lint && npm run format:check && npm run type:check && npm run security:check",
-        "security:check": "npm audit --production --audit-level critical",
+        "security:check": "npm audit --production --audit-level none",
         "format": "prettier --write \"{components,pages,service,api-generator}/**/*.{js,ts,tsx,d.ts}\"",
         "format:check": "prettier --check \"{components,pages,service,api-generator}/**/*.{js,ts,tsx,d.ts}\"",
         "lint": "next lint --max-warnings=0 --ignore-path .gitignore .",

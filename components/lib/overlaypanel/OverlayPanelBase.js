@@ -15,6 +15,7 @@ export const OverlayPanelBase = ComponentBase.extend({
         transitionOptions: null,
         onShow: null,
         onHide: null,
+        align: null,
         children: undefined
     }
 });
