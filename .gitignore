@@ -21,6 +21,7 @@ tsconfig.tsbuildinfo
 # production
 /dist
 /build
+/archives
 
 # misc
 .DS_Store
