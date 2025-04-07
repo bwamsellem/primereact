@@ -18,6 +18,7 @@ export const Dropdown = React.memo(
         const [filterState, setFilterState] = React.useState('');
         const [focusedState, setFocusedState] = React.useState(false);
         const [overlayVisibleState, setOverlayVisibleState] = React.useState(false);
+        const [listSelectedOption, setListSelectedOption] = React.useState(undefined);
         const { ptm } = DropdownBase.setMetaData({
             props,
             state: {
@@ -152,10 +153,21 @@ export const Dropdown = React.memo(
                     onUpKey(event);
                     break;
 
-                //space and enter
+                //space
                 case 32:
-                case 13:
                     overlayVisibleState ? hide() : show();
+                    event.preventDefault();
+                    break;
+
+                //enter
+                case 13:
+                    if (overlayVisibleState) {
+                        selectItem({ originalEvent: event, option: listSelectedOption });
+                        hide();
+                    } else {
+                        show();
+                    }
+
                     event.preventDefault();
                     break;
 
@@ -186,6 +198,7 @@ export const Dropdown = React.memo(
                 //enter and escape
                 case 13:
                 case 27:
+                    selectItem({ originalEvent: event, option: listSelectedOption });
                     hide();
                     event.preventDefault();
                     break;
@@ -197,13 +210,22 @@ export const Dropdown = React.memo(
 
         const onUpKey = (event) => {
             if (visibleOptions) {
-                const prevOption = findPrevOption(getSelectedOptionIndex());
+                if (overlayVisibleState) {
+                    const listSelectionIndex = getOptionIndex(getOptionValue(listSelectedOption));
+                    const prevOption = findPrevOption(listSelectionIndex);
 
-                if (prevOption) {
-                    selectItem({
-                        originalEvent: event,
-                        option: prevOption
-                    });
+                    if (prevOption) {
+                        listSelectItem(prevOption);
+                    }
+                } else {
+                    const prevOption = findPrevOption(getSelectedOptionIndex());
+
+                    if (prevOption) {
+                        selectItem({
+                            originalEvent: event,
+                            option: prevOption
+                        });
+                    }
                 }
             }
 
@@ -215,13 +237,22 @@ export const Dropdown = React.memo(
                 if (!overlayVisibleState && event.altKey) {
                     show();
                 } else {
-                    const nextOption = findNextOption(getSelectedOptionIndex());
+                    if (overlayVisibleState) {
+                        const listSelectionIndex = getOptionIndex(getOptionValue(listSelectedOption));
+                        const nextOption = findNextOption(listSelectionIndex);
 
-                    if (nextOption) {
-                        selectItem({
-                            originalEvent: event,
-                            option: nextOption
-                        });
+                        if (nextOption) {
+                            listSelectItem(nextOption);
+                        }
+                    } else {
+                        const nextOption = findNextOption(getSelectedOptionIndex());
+
+                        if (nextOption) {
+                            selectItem({
+                                originalEvent: event,
+                                option: nextOption
+                            });
+                        }
                     }
                 }
             }
@@ -458,8 +489,8 @@ export const Dropdown = React.memo(
             updateEditableLabel();
         };
 
-        const selectItem = (event) => {
-            if (selectedOption !== event.option) {
+        const selectItem = (event, forceTriggerEvent) => {
+            if (props.alwaysTriggerChange || selectedOption !== event.option) {
                 updateEditableLabel(event.option);
                 const optionValue = getOptionValue(event.option);
 
@@ -483,25 +514,36 @@ export const Dropdown = React.memo(
             }
         };
 
-        const getSelectedOptionIndex = (options) => {
+        const getSelectedOptionIndex = () => {
+            return getOptionIndex(props.value);
+        };
+
+        function getOptionIndex(value, options) {
             options = options || visibleOptions;
 
-            if (props.value != null && options) {
+            if (value != null && options) {
                 if (props.optionGroupLabel) {
                     for (let i = 0; i < options.length; i++) {
-                        let selectedOptionIndex = findOptionIndexInList(props.value, getOptionGroupChildren(options[i]));
+                        let selectedOptionIndex = findOptionIndexInList(value, getOptionGroupChildren(options[i]));
 
                         if (selectedOptionIndex !== -1) {
                             return { group: i, option: selectedOptionIndex };
                         }
                     }
                 } else {
-                    return findOptionIndexInList(props.value, options);
+                    return findOptionIndexInList(value, options);
                 }
             }
 
             return -1;
-        };
+        }
+
+        function listSelectItem(option) {
+            // const value = option ? getOptionValue(option) : undefined;
+            //onsole.debug('list selection', option);
+            setListSelectedOption(option);
+            scrollInView();
+        }
 
         const equalityKey = () => {
             return props.optionValue ? null : props.dataKey;
@@ -515,6 +557,10 @@ export const Dropdown = React.memo(
 
         const isSelected = (option) => {
             return ObjectUtils.equals(props.value, getOptionValue(option), equalityKey());
+        };
+
+        const isListSelected = (option) => {
+            return ObjectUtils.equals(getOptionValue(listSelectedOption), getOptionValue(option), equalityKey());
         };
 
         const show = () => {
@@ -922,7 +968,7 @@ export const Dropdown = React.memo(
                         getOptionGroupChildren={getOptionGroupChildren}
                         getOptionGroupLabel={getOptionGroupLabel}
                         getOptionGroupRenderKey={getOptionGroupRenderKey}
-                        isSelected={isSelected}
+                        isSelected={isListSelected}
                         getSelectedOptionIndex={getSelectedOptionIndex}
                         in={overlayVisibleState}
                         onEnter={onOverlayEnter}

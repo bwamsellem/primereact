@@ -403,6 +403,10 @@ export interface DropdownProps extends Omit<React.DetailedHTMLProps<React.InputH
      */
     showOnFocus?: boolean | undefined;
     /**
+     *  triggers onChange event even the same item is reselected
+     */
+    alwaysTriggerChange?: boolean | undefined;
+    /**
      * Inline style of the element.
      */
     style?: React.CSSProperties | undefined;
