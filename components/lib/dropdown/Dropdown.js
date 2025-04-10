@@ -514,8 +514,8 @@ export const Dropdown = React.memo(
             }
         };
 
-        const getSelectedOptionIndex = () => {
-            return getOptionIndex(props.value);
+        const getSelectedOptionIndex = (options) => {
+            return getOptionIndex(props.value, options);
         };
 
         function getOptionIndex(value, options) {
@@ -539,8 +539,6 @@ export const Dropdown = React.memo(
         }
 
         function listSelectItem(option) {
-            // const value = option ? getOptionValue(option) : undefined;
-            //onsole.debug('list selection', option);
             setListSelectedOption(option);
             scrollInView();
         }
@@ -565,6 +563,7 @@ export const Dropdown = React.memo(
 
         const show = () => {
             setOverlayVisibleState(true);
+            listSelectItem(getSelectedOption());
         };
 
         const hide = () => {
