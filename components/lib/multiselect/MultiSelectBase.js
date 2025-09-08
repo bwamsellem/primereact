@@ -57,6 +57,7 @@ export const MultiSelectBase = ComponentBase.extend({
         scrollHeight: '200px',
         selectAll: false,
         selectedItemTemplate: null,
+        valueTemplate: null,
         selectedItemsLabel: '{0} items selected',
         selectionLimit: null,
         showClear: false,

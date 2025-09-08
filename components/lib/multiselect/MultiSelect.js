@@ -495,7 +495,9 @@ export const MultiSelect = React.memo(
         };
 
         const getLabelContent = () => {
-            if (props.selectedItemTemplate) {
+            if (props.valueTemplate) {
+                return ObjectUtils.getJSXElement(props.valueTemplate, props.value);
+            } else if (props.selectedItemTemplate) {
                 if (!empty) {
                     if (ObjectUtils.isNotEmpty(props.maxSelectedLabels) && props.value.length > props.maxSelectedLabels) {
                         return getSelectedItemsLabel();

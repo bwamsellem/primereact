@@ -591,6 +591,10 @@ export interface MultiSelectProps extends Omit<React.DetailedHTMLProps<React.Inp
      */
     selectedItemTemplate?: React.ReactNode | ((value: any) => React.ReactNode);
     /**
+     * Function that is called to customized the display of all selected items
+     */
+    valueTemplate?: React.ReactNode | ((value: any) => React.ReactNode);
+    /**
      * Label to display after exceeding max selected labels.
      * @defaultValue {0} items selected
      */

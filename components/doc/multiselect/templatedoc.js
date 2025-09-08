@@ -27,6 +27,10 @@ export function TemplateDoc(props) {
         );
     };
 
+    const countriesTemplate = (countries) => {
+        return countries ? countries.map((c) => c.name).join(' and ') : '';
+    };
+
     const panelFooterTemplate = () => {
         const length = selectedCountries ? selectedCountries.length : 0;
 
@@ -39,7 +43,7 @@ export function TemplateDoc(props) {
 
     const code = {
         basic: `
-<MultiSelect value={selectedCountries} options={countries} onChange={(e) => setSelectedCountries(e.value)} optionLabel="name" 
+<MultiSelect value={selectedCountries} options={countries} onChange={(e) => setSelectedCountries(e.value)} optionLabel="name"
     placeholder="Select Countries" itemTemplate={countryTemplate} panelFooterTemplate={panelFooterTemplate} className="w-full md:w-20rem" display="chip" />
         `,
         javascript: `
@@ -82,7 +86,7 @@ export default function TemplateDemo() {
 
     return (
         <div className="card flex justify-content-center">
-            <MultiSelect value={selectedCountries} options={countries} onChange={(e) => setSelectedCountries(e.value)} optionLabel="name" 
+            <MultiSelect value={selectedCountries} options={countries} onChange={(e) => setSelectedCountries(e.value)} optionLabel="name"
                 placeholder="Select Countries" itemTemplate={countryTemplate} panelFooterTemplate={panelFooterTemplate} className="w-full md:w-20rem" display="chip" />
         </div>
     );
@@ -133,8 +137,8 @@ export default function TemplateDemo() {
 
     return (
         <div className="card flex justify-content-center">
-            <MultiSelect value={selectedCountries} options={countries} onChange={(e: MultiSelectChangeEvent) => setSelectedCountries(e.value)} optionLabel="name" 
-                placeholder="Select Countries" itemTemplate={countryTemplate} panelFooterTemplate={panelFooterTemplate} className="w-full md:w-20rem" display="chip" />
+            <MultiSelect value={selectedCountries} options={countries} onChange={(e: MultiSelectChangeEvent) => setSelectedCountries(e.value)} optionLabel="name"
+                placeholder="Select Countries" itemTemplate={countryTemplate} panelFooterTemplate={panelFooterTemplate} className="w-full md:w-20rem"  />
         </div>
     );
 }
@@ -145,7 +149,8 @@ export default function TemplateDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Available options and the selected options support templating with <i>itemTemplate</i> and <i>valueTemplate</i> properties respectively. In addition, header, footer and filter sections can be templated as well.
+                    Available options and the selected options support templating with <i>itemTemplate</i>, <i>selectedItemTemplate</i> and <i>valueTemplate</i> properties respectively. In addition, header, footer and filter sections can be templated
+                    as well.
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">
@@ -156,6 +161,7 @@ export default function TemplateDemo() {
                     optionLabel="name"
                     placeholder="Select Countries"
                     itemTemplate={countryTemplate}
+                    valueTemplate={countriesTemplate}
                     panelFooterTemplate={panelFooterTemplate}
                     className="w-full md:w-20rem"
                     display="chip"
